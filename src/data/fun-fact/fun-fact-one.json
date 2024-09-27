@@ -1,0 +1,24 @@
+[
+  {
+    "id": "1",
+    "iconClass": "pe-7s-portfolio",
+    "countNum": 360,
+    "title": "products sold"
+  },
+
+  
+
+  {
+    "id": "3",
+    "iconClass": "pe-7s-light",
+    "countNum": 100,
+    "title": "branding"
+  },
+
+  {
+    "id": "4",
+    "iconClass": "pe-7s-smile",
+    "countNum": 420,
+    "title": "happy customers"
+  }
+]

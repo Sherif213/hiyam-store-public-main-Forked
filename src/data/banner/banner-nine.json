@@ -1,0 +1,35 @@
+[
+  {
+    "id": 1,
+    "image": "/assets/img/banner/serums2.png",
+    "title": "Serums",
+    "subtitle": "Starting at",
+    "price": "₺899",
+    "link": "/shop-grid-standard"
+  },
+  {
+    "id": 2,
+    "image": "/assets/img/banner/tonics2.png",
+    "title": "Tonics",
+    "subtitle": "Starting at",
+    "price": "₺499",
+    "link": "/shop-grid-standard"
+  },
+  {
+    "id": 2,
+    "image": "/assets/img/banner/crems.png",
+    "title": "Creams",
+    "subtitle": "Starting at",
+    "price": "₺699",
+    "link": "/shop-grid-standard"
+  },
+  {
+    "id": 2,
+    "image": "/assets/img/banner/cleansers2.png",
+    "title": "Cleansers",
+    "subtitle": "Starting at",
+    "price": "₺399",
+    "link": "/shop-grid-standard"
+  }
+  
+]
