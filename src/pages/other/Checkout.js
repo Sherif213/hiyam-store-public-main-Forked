@@ -147,55 +147,112 @@ const Checkout = () => {
       })),
     ],
     paymentMethod:
-      paymentMethod === "creditCard" ? "credit-card" : "bank-transfer",
+      paymentMethod === "creditCard" ? "Payment" : "bank-transfer",
+    totalAmount: cartTotalPrice,
   };
 
   const placeOrder = async (e) => {
     e.preventDefault();
     if (paymentMethod === "creditCard" && !validateCard()) {
       toast.info("Please enter valid credit card details.");
+      return;
     }
-
+  
     try {
       setLoading(true);
-      const url = API_BASE_URL + "/orders/place";
+      const url = "http://localhost:8000/paymentprocess.php"; 
+      console.log("Request URL:", url);
+  
+      const requestBody = {
+        firstName,
+        lastName,
+        email: user?.email,
+        address1,
+        address2,
+        state,
+        zip,
+        phone,
+        notes,
+        cardHolderName: cardInfo.name,
+        cardNumber: cardInfo.number,
+        expireMonth: cardInfo.expiryMonth,
+        expireYear: cardInfo.expiryYear,
+        cvc: cardInfo.cvv,
+        products: cartItems.map((item) => ({
+          id: item?.id,
+          quantity: item?.quantity || 1,
+        })),
+        paymentMethod: paymentMethod === "creditCard" ? "Payment" : "bank-transfer",
+        totalAmount: cartTotalPrice,
+      };
+  
+      console.log("Request Body:", requestBody);
+  
       const res = await fetch(url, {
         method: "POST",
         headers: {
           Authorization: token,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(requestBody),
       });
-
-      const resData = await res.json();
-      console.log(resData);
-
+  
+      console.log("Response received", res);
+  
+      const contentType = res.headers.get("content-type");
+      let resData;
+      if (contentType && contentType.includes("application/json")) {
+        // resData = await res.json();
+        console.log("Response Data:", resData);
+      } else {
+        console.error("Received non-JSON response");
+        throw new Error("Received non-JSON response");
+      }
+  
+      console.log("Response Status:", res.status);
+      console.log("Response OK:", res.ok);
+  
       if (res.ok) {
+        console.log("Response OK");
         updateUser(resData?.user);
-        dispatch(deleteAllFromCart());
         toast.success("Thank You for your order!");
-
-        // Display the order ID if it's part of the response
-        // Replace `resData?.orderId` with the correct path if needed
+        dispatch(deleteAllFromCart());
+        
+  
         const orderId = resData?.id || "Order ID not available";
         toast.info(`Your Order ID is: ${orderId}`);
-        window.location.href = "/shop-grid-standard";
+        const orderUrl = API_BASE_URL + "/orders/place";
+            const orderRes = await fetch(orderUrl, {
+                method: "POST",
+                headers: {
+                    Authorization: token,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(requestBody),
+            });
+
+            const orderResData = await orderRes.json();
+            console.log("Order Response Data:", orderResData);
+
+        
+        // window.location.href = "/shop-grid-standard";
       } else {
+        console.log("Response not OK");
         toast.error(
           resData?.error ||
-            resData?.message ||
-            "Something went wrong! Please try again."
+          resData?.message ||
+          "Something went wrong! Please try again."
         );
       }
     } catch (error) {
-      console.log(error);
-      toast.error("Server error");
+      console.log("Error:", error);
+      toast.error("Server error! Please try again later.");
     } finally {
       setLoading(false);
+      console.log("Loading set to false");
     }
   };
-
+  
   return (
     <Fragment>
       <SEO
