@@ -56,7 +56,7 @@ class GarantiPaymentProcess
     public function __construct()
 {
     error_log("Initializing GarantiPaymentProcess...");
-    $this->settings = new PosSettings(RequestMode::Prod);
+    $this->settings = new PosSettings(RequestMode::Test);
     error_log("PosSettings initialized: " . json_encode($this->settings));
     $this->request = new PaymentRequest();
     error_log("PaymentRequest initialized: " . json_encode($this->request));
