@@ -160,7 +160,7 @@ const Checkout = () => {
   
     try {
       setLoading(true);
-      const url = "http://hayimcoesmotics.store/paymentprocess.php"; 
+      const url = "http://localhost:8000/paymentprocess.php"; 
       console.log("Request URL:", url);
   
       const requestBody = {

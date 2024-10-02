@@ -14,16 +14,16 @@ class PosSettings
     public $version = "512";
     public $provUserId = "PROVAUT";
     public $provUserId3DS = "GARANTI";
-    public $provUserPassword = "Sidra2004.";
+    public $provUserPassword = "123qweASD/";
     public $userId = "PROVAUT";
-    public $terminalId = "10302239";
-    public $merchantId = "2671445";
+    public $terminalId = "30691297";
+    public $merchantId = "7000679";
 
     public $emailAddress = "eticaret@garanti.com.tr";
     public $ipAddress = "192.168.0.1";
 
-    public $storeKey = "736964726131373031303131303453696472615369647261";
-    public $threeDPaymentResultUrl = "http://localhost:8000/threed-payment-result.php";
+    public $storeKey = "12345678";
+    public $threeDPaymentResultUrl = "http://localhost:8080/gap_php/threed-payment-result.php";
 
     public function __construct($mode)
     {
@@ -32,10 +32,10 @@ class PosSettings
 
     public function GetRequestUrl()
     {
-        if ($this->requestMode === RequestMode::Prod) {
-            $this->requestUrl = "https://sanalposprov.garanti.com.tr/VPServlet";
+        if ($this->requestMode === RequestMode::Test) {
+            $this->requestUrl = "https://sanalposprovtest.garantibbva.com.tr/VPServlet";
         } else {
-            $this->requestUrl = "https://sanalposprov.garantibbva.com.tr/VPServlet";
+            $this->requestUrl = "https://sanalposprov.garanti.com.tr/VPServlet";
         }
 
         return $this->requestUrl;
